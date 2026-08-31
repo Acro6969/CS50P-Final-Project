@@ -1,4 +1,4 @@
-
+import random
 
 difficulty = {'easy': 7, 'medium': 6, 'hard': 5}
 vocabulary = {
@@ -25,3 +25,12 @@ vocabulary = {
     "Tornado", "Constellation", "Continent", "Ecosystem", "Biodiversity", "Geothermal", "Glacier", "Architecture",
     "Democracy", "Geography", "Astronomy", "Psychology", "Mathematics", "Technology", "Revolution", "Monarchy"]
 }
+
+def main():
+    print(get_random_word('place'))
+
+def get_random_word(category):
+    return random.choice(vocabulary[category])
+
+if __name__ == "__main__":
+    main()
