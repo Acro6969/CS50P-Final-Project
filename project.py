@@ -1,7 +1,7 @@
 import random
 
-difficulty = {'easy': 7, 'medium': 6, 'hard': 5}
-vocabulary = {
+difficulties = {'easy': 7, 'medium': 6, 'hard': 5}
+vocabularies = {
 
     'place': ["Cathedral", "Skyscraper", "Lighthouse", "Monastery", "Observatory", "Theater",
     "Warehouse", "Courthouse", "Aquarium", "Pyramid", "Fortress", "Laboratory", "Museum",
@@ -27,10 +27,38 @@ vocabulary = {
 }
 
 def main():
-    print(get_random_word('place'))
+    print("Welcome to Hangman!")
+    difficulty = get_difficulty()
+    strike_limit = difficulties[difficulty]
+    print(f"You have chosen {difficulty} difficulty. You have {strike_limit} strikes.")
+
+    category = get_category()
+    word = get_random_word(category)
+
+    strikes = 0
+    points = 0
+
+
+def get_difficulty():
+    difficulty = input("Choose a difficulty level (easy, medium, hard): ").lower().strip()
+    if difficulty not in difficulties:
+        print("Invalid difficulty level. Please choose from easy, medium, or hard.")
+        return get_difficulty()
+    else:
+        return difficulty
+    
+
+def get_category():
+    category = input("Choose a category (place, animal, adjective, movie, general): ").lower().strip()
+    if category not in vocabularies:
+        print("Invalid category. Please choose from place, animal, adjective, movie, or general.")
+        return get_category()
+    else:
+        return category
+
 
 def get_random_word(category):
-    return random.choice(vocabulary[category])
+    return random.choice(vocabularies[category])
 
 if __name__ == "__main__":
     main()
