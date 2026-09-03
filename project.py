@@ -1,10 +1,18 @@
 import random
 
+games = ["hangman", "tictactoe", "blackjack"]
 
 def main():
-    games = input("What game would you like to play (Hangman, TicTacToe, Blackjack)? ").strip().lower()
+    game = input("What game would you like to play (Hangman, TicTacToe, Blackjack)? ").strip().lower()
 
-
+    if game == "hangman":
+        hangman = Hangman()
+    elif game == "tictactoe":
+        tictactoe = TicTacToe()
+    elif game == "blackjack":
+        blackjack = Blackjack()
+    else:
+        print("Invalid game choice.")
 
 class Hangman:
     difficulties = {'easy': 7, 'medium': 6, 'hard': 5}
