@@ -1,5 +1,11 @@
 import random
 
+
+def main():
+    games = input("What game would you like to play (Hangman, TicTacToe, Blackjack)? ").strip().lower()
+
+
+
 class Hangman:
     difficulties = {'easy': 7, 'medium': 6, 'hard': 5}
     vocabularies = {
@@ -35,7 +41,7 @@ class Hangman:
         print(f"You have chosen {self.difficulty} difficulty. You have {self.strike_limit} strikes.")
 
         self.category = self.get_category()
-        self.word = get_random_word(self.category)
+        self.word = self.get_random_word(self.category)
 
         self.strikes = 0
         self.points = 0
@@ -60,12 +66,9 @@ class Hangman:
 
 
     def get_random_word(self, category):
-        return random.choice(self.vocabularies[category])
+        self.get_random_word = random.choice(self.vocabularies[category])
+        return self.get_random_word.lower()
 
-def main():
-    game = Hangman()
-    print(f"The word to guess has {len(game.word)} letters.")
-    print("_ " * len(game.word))
 
 if __name__ == "__main__":
     main()
