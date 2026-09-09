@@ -15,7 +15,6 @@ def main():
         print("Invalid game choice.")
 
 class Hangman:
-    difficulties = {'easy': 7, 'medium': 6, 'hard': 5}
     vocabularies = {
 
         'place': ["Cathedral", "Skyscraper", "Lighthouse", "Monastery", "Observatory", "Theater",
@@ -43,25 +42,34 @@ class Hangman:
     }
 
     def __init__(self):
-        print("Welcome to Hangman!")
-        self.difficulty = self.get_difficulty()
-        self.strike_limit = self.difficulties[self.difficulty]
-        print(f"You have chosen {self.difficulty} difficulty. You have {self.strike_limit} strikes.")
+        self.art = {
+                    0: ["   "],
+                    1: [" o "],
+                    2: [" o ", 
+                        " | "],
+                    3: [" o ", 
+                        "/| ",],
+                    4: [" o ", 
+                        "/|\\"],
+                    5: [" o ", 
+                        "/|\\", 
+                        "/  "],
+                    6: [" o ", 
+                        "/|\\", 
+                        "/ \\"],
+                    }
 
+        print("Welcome to Hangman!")
         self.category = self.get_category()
         self.word = self.get_random_word(self.category)
 
-        self.strikes = 0
-        self.points = 0
+        wrong_guesses = 0
+        hint = ["_"] * len(self.word)
+        guessed_letters = set()
+        is_running = True
 
+        self.display_man(wrong_guesses)
 
-    def get_difficulty(self):
-        difficulty = input("Choose a difficulty level (easy, medium, hard): ").lower().strip()
-        if difficulty not in self.difficulties:
-            print("Invalid difficulty level. Please choose from easy, medium, or hard.")
-            return self.get_difficulty()
-        else:
-            return difficulty
         
 
     def get_category(self):
@@ -76,6 +84,16 @@ class Hangman:
     def get_random_word(self, category):
         self.get_random_word = random.choice(self.vocabularies[category])
         return self.get_random_word.lower()
+
+    def display_man(self, wrong_guesses):
+        print("**************")
+        for line in self.art[wrong_guesses]:
+            print(line)
+        print("**************")
+        
+    
+    def display_answer(self):
+        print(f"The word was: {self.word}")
 
 
 if __name__ == "__main__":
