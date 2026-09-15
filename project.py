@@ -1,4 +1,5 @@
 import random
+import sys
 
 games = ["hangman", "tictactoe", "blackjack"]
 
@@ -60,17 +61,39 @@ class Hangman:
                     }
 
         print("Welcome to Hangman!")
-        self.category = self.get_category()
-        self.word = self.get_random_word(self.category)
+        category = self.get_category()
+        word = self.get_random_word(category)
 
         wrong_guesses = 0
-        hint = ["_"] * len(self.word)
+        hint = ["_"] * len(word)
         guessed_letters = set()
         is_running = True
 
-        self.display_man(wrong_guesses)
+        while is_running:
+            self.display_man(wrong_guesses)
+            self.display_hint(hint)
+            guess = input("Guess a letter: ").lower().strip()
 
-        
+            if guess in guessed_letters:
+                print("You already guessed that letter. Try again.")
+            elif guess in word:
+                for i in range(len(word)):
+                    if word[i] == guess:
+                        hint[i] = guess
+                        guessed_letters.add(guess)
+            else:
+                wrong_guesses += 1
+            
+            if wrong_guesses == 6:
+                self.display_man(wrong_guesses)
+                print("You lost!")
+                self.display_answer(word)
+                sys.exit()
+            elif "_" not in hint:
+                print("You won!")
+                self.display_answer(word)
+                sys.exit()
+                
 
     def get_category(self):
         category = input("Choose a category (place, animal, adjective, movie, general): ").lower().strip()
@@ -89,12 +112,32 @@ class Hangman:
         print("**************")
         for line in self.art[wrong_guesses]:
             print(line)
-        print("**************")
+        print("\n**************")
         
+    def display_hint(self, hint):
+        print(" ".join(hint))
     
-    def display_answer(self):
-        print(f"The word was: {self.word}")
+    def display_answer(self, word):
+        print(f"The word was: {word}")
 
+class TicTacToe:
+    def __init__(self):
+        board = [
+            [" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "],
+        ]
+        is_running = True
+
+        self.display_board(board)
+            
+    def display_board(self, board):
+        print("Current Board:")
+        print(f" {board[0][0]} | {board[0][1]} | {board[0][2]}")
+        print("---+---+---")
+        print(f" {board[1][0]} | {board[1][1]} | {board[1][2]}")
+        print("---+---+---")
+        print(f" {board[2][0]} | {board[2][1]} | {board[2][2]}")
 
 if __name__ == "__main__":
     main()
