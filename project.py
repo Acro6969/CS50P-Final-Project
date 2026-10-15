@@ -123,14 +123,48 @@ class Hangman:
 class TicTacToe:
     def __init__(self):
         board = [
-            [" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "],
+            ["1", "2", "3"],
+            ["4", "5", "6"],
+            ["7", "8", "9"],
         ]
         is_running = True
+        game_mode = input("Do you want to play against the computer? (y/n): ").strip().lower()
 
-        self.display_board(board)
-            
+        if game_mode == "y":
+            while is_running:
+                self.display_board(board)
+                self.player_move(board)
+                self.computer_move(board)
+                winner = self.check_winner(board)
+                if winner == "X":
+                    sys.exit(f"You win!")
+                    is_running = False
+                elif winner == "O":
+                    sys.exit(f"You lose!")
+                    is_running = False
+                elif all(cell in ["X", "O"] for row in board for cell in row):
+                    sys.exit("It's a tie!")
+                    is_running = False
+                else:
+                    continue
+
+        else:
+            while is_running:
+                self.display_board(board)
+                self.player_move(board)
+                winner = self.check_winner(board)
+                if winner == "X":
+                    sys.exit(f"Player 1 wins!")
+                    is_running = False
+                elif winner == "O":
+                    sys.exit(f"Player 2 wins!")
+                    is_running = False
+                elif all(cell in ["X", "O"] for row in board for cell in row):
+                    sys.exit("It's a tie!")
+                    is_running = False
+                else:
+                    continue
+
     def display_board(self, board):
         print("Current Board:")
         print(f" {board[0][0]} | {board[0][1]} | {board[0][2]}")
@@ -138,6 +172,88 @@ class TicTacToe:
         print(f" {board[1][0]} | {board[1][1]} | {board[1][2]}")
         print("---+---+---")
         print(f" {board[2][0]} | {board[2][1]} | {board[2][2]}")
+
+    def player_move(self, board):
+        while True:
+            move = input("Enter your move (1-9): ").strip()
+
+
+                if move == "1" and board[0][0] not in ["X", "O"]:
+                    board[0][0] = "X"
+                    break
+                elif move == "2" and board[0][1] not in ["X", "O"]:
+                    board[0][1] = "X"
+                    break
+                elif move == "3" and board[0][2] not in ["X", "O"]:
+                    board[0][2] = "X"
+                    break
+                elif move == "4" and board[1][0] not in ["X", "O"]:
+                    board[1][0] = "X"
+                    break
+                elif move == "5" and board[1][1] not in ["X", "O"]:
+                    board[1][1] = "X"
+                    break
+                elif move == "6" and board[1][2] not in ["X", "O"]:
+                    board[1][2] = "X"
+                    break
+                elif move == "7" and board[2][0] not in ["X", "O"]:
+                    board[2][0] = "X"
+                    break
+                elif move == "8" and board[2][1] not in ["X", "O"]:
+                    board[2][1] = "X"
+                    break
+                elif move == "9" and board[2][2] not in ["X", "O"]:
+                    board[2][2] = "X"
+                    break
+                else:
+                    print("Invalid move. Please try again.")
+    
+    def computer_move(self, board):
+        while True:
+            move = str(random.randint(1, 9))
+            if move == "1" and board[0][0] not in ["X", "O"]:
+                board[0][0] = "O"
+                break
+            elif move == "2" and board[0][1] not in ["X", "O"]:
+                board[0][1] = "O"
+                break
+            elif move == "3" and board[0][2] not in ["X", "O"]:
+                board[0][2] = "O"
+                break
+            elif move == "4" and board[1][0] not in ["X", "O"]:
+                board[1][0] = "O"
+                break
+            elif move == "5" and board[1][1] not in ["X", "O"]:
+                board[1][1] = "O"
+                break
+            elif move == "6" and board[1][2] not in ["X", "O"]:
+                board[1][2] = "O"
+                break
+            elif move == "7" and board[2][0] not in ["X", "O"]:
+                board[2][0] = "O"
+                break
+            elif move == "8" and board[2][1] not in ["X", "O"]:
+                board[2][1] = "O"
+                break
+            elif move == "9" and board[2][2] not in ["X", "O"]:
+                board[2][2] = "O"
+                break
+        
+    def check_winner(self, board):
+
+        for row in board:
+            if row[0] == row[1] == row[2]:
+                return row[0]
+
+        for col in range(3):
+            if board[0][col] == board[1][col] == board[2][col]:
+                return board[0][col]
+
+        if board[0][0] == board[1][1] == board[2][2]:
+            return board[0][0]
+        if board[0][2] == board[1][1] == board[2][0]:
+            return board[0][2]
+        return None
 
 if __name__ == "__main__":
     main()
