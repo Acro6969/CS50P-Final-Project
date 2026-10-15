@@ -1,5 +1,6 @@
 import random
 import sys
+import pydealer
 
 games = ["hangman", "tictactoe", "blackjack"]
 
