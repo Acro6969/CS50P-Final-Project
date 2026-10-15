@@ -123,6 +123,7 @@ class Hangman:
 
 class TicTacToe:
     def __init__(self):
+        print("Welcome to Tic Tac Toe!")
         board = [
             ["1", "2", "3"],
             ["4", "5", "6"],
@@ -177,37 +178,35 @@ class TicTacToe:
     def player_move(self, board):
         while True:
             move = input("Enter your move (1-9): ").strip()
-
-
-                if move == "1" and board[0][0] not in ["X", "O"]:
-                    board[0][0] = "X"
-                    break
-                elif move == "2" and board[0][1] not in ["X", "O"]:
-                    board[0][1] = "X"
-                    break
-                elif move == "3" and board[0][2] not in ["X", "O"]:
-                    board[0][2] = "X"
-                    break
-                elif move == "4" and board[1][0] not in ["X", "O"]:
-                    board[1][0] = "X"
-                    break
-                elif move == "5" and board[1][1] not in ["X", "O"]:
-                    board[1][1] = "X"
-                    break
-                elif move == "6" and board[1][2] not in ["X", "O"]:
-                    board[1][2] = "X"
-                    break
-                elif move == "7" and board[2][0] not in ["X", "O"]:
-                    board[2][0] = "X"
-                    break
-                elif move == "8" and board[2][1] not in ["X", "O"]:
-                    board[2][1] = "X"
-                    break
-                elif move == "9" and board[2][2] not in ["X", "O"]:
-                    board[2][2] = "X"
-                    break
-                else:
-                    print("Invalid move. Please try again.")
+            if move == "1" and board[0][0] not in ["X", "O"]:
+                board[0][0] = "X"
+                break
+            elif move == "2" and board[0][1] not in ["X", "O"]:
+                board[0][1] = "X"
+                break
+            elif move == "3" and board[0][2] not in ["X", "O"]:
+                board[0][2] = "X"
+                break
+            elif move == "4" and board[1][0] not in ["X", "O"]:
+                board[1][0] = "X"
+                break
+            elif move == "5" and board[1][1] not in ["X", "O"]:
+                board[1][1] = "X"
+                break
+            elif move == "6" and board[1][2] not in ["X", "O"]:
+                board[1][2] = "X"
+                break
+            elif move == "7" and board[2][0] not in ["X", "O"]:
+                board[2][0] = "X"
+                break
+            elif move == "8" and board[2][1] not in ["X", "O"]:
+                board[2][1] = "X"
+                break
+            elif move == "9" and board[2][2] not in ["X", "O"]:
+                board[2][2] = "X"
+                break
+            else:
+                print("Invalid move. Please try again.")
     
     def computer_move(self, board):
         while True:
@@ -255,6 +254,97 @@ class TicTacToe:
         if board[0][2] == board[1][1] == board[2][0]:
             return board[0][2]
         return None
+
+class Blackjack:
+    new_ranks = {
+        "values": {
+            "Ace": 11,
+            "King": 10,
+            "Queen": 10,
+            "Jack": 10,
+            "10": 10,
+            "9": 9,
+            "8": 8,
+            "7": 7,
+            "6": 6,
+            "5": 5,
+            "4": 4,
+            "3": 3,
+            "2": 2,
+        }
+    }
+    def __init__(self):
+        print("Welcome to Blackjack!")
+        self.deck = pydealer.Deck(ranks=self.new_ranks["values"].keys())
+        self.deck.shuffle()
+        self.player_hand = pydealer.Stack()
+        self.dealer_hand = pydealer.Stack()
+        self.player_score = 0
+        self.dealer_score = 0
+        
+        is_running = True
+
+        while is_running:
+            self.player_hand.add(self.hit())
+            self.player_hand.add(self.hit())
+            self.dealer_hand.add(self.hit())
+            self.dealer_hand.add(self.hit())
+
+            self.player_score = self.calculate_score(self.player_hand)
+            self.dealer_score = self.calculate_score(self.dealer_hand)
+
+            print(f"Your hand: \n{self.player_hand}")
+            print(f"Your score: {self.player_score}")
+            print(f"Dealer's hand: \n{self.dealer_hand[0]} \n[Hidden Card]")
+
+            if self.player_score == 21:
+                print("Blackjack! You win!")
+                sys.exit()
+            
+            while True:
+                action = input("Do you want to hit or stand? (h/s): ").strip().lower()
+                if action == "h":
+                    self.player_hand.add(self.hit())
+                    self.player_score = self.calculate_score(self.player_hand)
+                    print(f"Your hand: {self.player_hand}")
+                    print(f"Your score: {self.player_score}")
+                    if self.player_score > 21:
+                        print("Bust! You lose!")
+                        sys.exit()
+                elif action == "s":
+                    break
+                else:
+                    print("Invalid input. Please enter 'h' to hit or 's' to stand.")
+
+            while self.dealer_score < 17:
+                self.dealer_hand.add(self.hit())
+                self.dealer_score = self.calculate_score(self.dealer_hand)
+
+            print(f"Dealer's hand: {self.dealer_hand}")
+            print(f"Dealer's score: {self.dealer_score}")
+
+            if self.dealer_score > 21:
+                print("Dealer busts! You win!")
+                sys.exit()
+            elif self.dealer_score > self.player_score:
+                print("Dealer wins!")
+                sys.exit()
+            elif self.dealer_score < self.player_score:
+                print("You win!")
+                sys.exit()
+            else:
+                print("It's a tie!")
+                sys.exit()
+
+    def hit(self):
+        card = self.deck.deal(1)
+        return card
+    
+    def calculate_score(self, hand):
+        score = 0
+        for card in hand:
+            score += self.new_ranks["values"][card.value]
+        return score
 
 if __name__ == "__main__":
     main()
