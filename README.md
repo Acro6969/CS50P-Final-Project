@@ -4,7 +4,7 @@
 
 Arcade is a Python-based mini arcade that contains multiple games in one program. The project currently includes three games: Hangman, Tic-Tac-Toe, and Blackjack.
 
-As a high school student living alone in an apartment far away from home, I sometimes find myself getting bored. My daily routine is relatively mundane, consisting of waking up, going to school, studying, eating lunch and dinner, and going to bed. To make my free time a little more entertaining, I decided to create my own virtual arcade using the Python programming skills I acquired over the past weeks through Harvard's CS50's Introduction to Programming with Python (CS50P) course.
+As a high school student living alone in an apartment far away from home, I sometimes find myself getting bored. My daily routine is relatively mundane: waking up, going to school, studying, eating lunch and dinner, and going to bed. To make my free time a little more entertaining, I decided to create my own virtual arcade using the Python programming skills I acquired over the past weeks through Harvard's CS50's Introduction to Programming with Python (CS50P) course.
 
 Rather than creating three completely separate programs, I wanted to bring the games together into a single arcade experience. This project allowed me to apply what I learned in CS50P while exploring how to organize a larger program into smaller, more manageable components.
 
@@ -16,8 +16,6 @@ Hangman is a word-guessing game in which the player attempts to identify a hidde
 
 Planned features:
 
-- Difficulty levels: Allow players to choose between different levels of difficulty.
-
 - Themes and vocabulary: Organize words into categories, such as animals, food, technology, and more.
 
 - Point system: Award points based on the player's performance.
@@ -25,8 +23,6 @@ Planned features:
 - Strike system: Track incorrect guesses and limit the number of mistakes allowed.
 
 - Letter checker: Validate guesses and determine whether a letter appears in the hidden word.
-
-- Used letters list: Display previously guessed letters to prevent repeated guesses.
 
 - Win and lose displays: Inform players whether they successfully guessed the word or ran out of attempts.
 
@@ -44,9 +40,7 @@ Planned features:
 
 - Win detection: Check for three matching symbols in a row, column, or diagonal.
 
-- Draw detection: Identify when the board is full and neither player has won.
-
-- Replay option: Allow players to start another round without restarting the entire arcade.
+- Draw detection: Identify when the board is full, and neither player has won.
 
 ### 3. Blackjack
 
@@ -63,8 +57,6 @@ Planned features:
 - Dealer behavior: Have the dealer draw cards according to predefined rules.
 
 - Hand evaluation: Determine whether the player or dealer wins, including busts and ties.
-
-- Replay option: Allow players to play multiple rounds.
 
 ### Design Choices
 
